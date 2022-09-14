@@ -1,0 +1,6 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Fri Jun 24 09:56:49 EDT 2022
+2e294e06e938acb867e59767bfe629cdc3409ae1@default-central-https\://artifactory.corp.chartercom.com//plugins-release/.lastUpdated=1656079008156
+https\://artifactory.corp.chartercom.com//plugins-release/.error=Could not transfer artifact org.apache.maven.plugins\:maven-site-plugin\:jar\:3.5.1 from/to central (https\://artifactory.corp.chartercom.com//plugins-release)\: PKIX path building failed\: sun.security.provider.certpath.SunCertPathBuilderException\: unable to find valid certification path to requested target
+2e294e06e938acb867e59767bfe629cdc3409ae1@default-snapshots-https\://artifactory.corp.chartercom.com//plugins-snapshot/.lastUpdated=1656079009760
+https\://artifactory.corp.chartercom.com//plugins-snapshot/.error=Could not transfer artifact org.apache.maven.plugins\:maven-site-plugin\:jar\:3.5.1 from/to snapshots (https\://artifactory.corp.chartercom.com//plugins-snapshot)\: PKIX path building failed\: sun.security.provider.certpath.SunCertPathBuilderException\: unable to find valid certification path to requested target

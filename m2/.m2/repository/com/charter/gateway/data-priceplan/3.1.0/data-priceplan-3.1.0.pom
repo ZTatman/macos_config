@@ -1,0 +1,50 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <artifactId>data-priceplan</artifactId>
+  <groupId>com.charter.gateway</groupId>
+  <version>3.1.0</version>
+  <packaging>jar</packaging>
+
+  <name>data-priceplan</name>
+  <description>A library of Price Plan data structures that can be persisted within Gateway's Application Tier.
+  </description>
+
+  <parent>
+    <groupId>com.charter.gateway</groupId>
+    <artifactId>webapi-library-parent</artifactId>
+    <version>GoldenEagle.SR5</version>
+    <relativePath />
+  </parent>
+
+  <properties>
+
+    <!-- Owner information -->
+    <owner.name>Ordering Team</owner.name>
+    <owner.email>DL-ORDERING-DEV@charter.com</owner.email>
+
+  </properties>
+
+  <dependencies>
+     <!--Gateway Data Commons-->
+    <dependency>
+      <groupId>com.charter.gateway</groupId>
+      <artifactId>gateway-data</artifactId>
+    </dependency>
+
+    <!-- Test -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.hazelcast</groupId>
+      <artifactId>hazelcast</artifactId>
+      <classifier>tests</classifier>
+      <scope>test</scope>
+    </dependency>
+
+  </dependencies>
+
+</project>

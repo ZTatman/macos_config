@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata modelVersion="1.1.0">
+  <groupId>com.charter.gateway.webapi.spring</groupId>
+  <artifactId>account-user-v2</artifactId>
+  <versioning>
+    <lastUpdated>20220701133909</lastUpdated>
+    <snapshot>
+      <localCopy>true</localCopy>
+    </snapshot>
+    <snapshotVersions>
+      <snapshotVersion>
+        <extension>jar</extension>
+        <value>2.0.0-SNAPSHOT</value>
+        <updated>20220701133909</updated>
+      </snapshotVersion>
+      <snapshotVersion>
+        <extension>pom</extension>
+        <value>2.0.0-SNAPSHOT</value>
+        <updated>20220701133909</updated>
+      </snapshotVersion>
+    </snapshotVersions>
+  </versioning>
+  <version>2.0.0-SNAPSHOT</version>
+</metadata>

@@ -1,0 +1,886 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <name>Hazelcast Enterprise Root</name>
+    <modules>
+        <module>hazelcast-enterprise</module>
+        <module>hazelcast-enterprise-hotrestart</module>
+        <module>hazelcast-enterprise-native-memory</module>
+        <module>hazelcast-enterprise-test-support</module>
+        <module>distribution</module>
+        <module>hazelcast-enterprise-it</module>
+    </modules>
+    <groupId>com.hazelcast</groupId>
+    <artifactId>hazelcast-enterprise-root</artifactId>
+    <packaging>pom</packaging>
+    <version>5.1.1</version>
+
+    <properties>
+        <!-- needed for CheckStyle -->
+        <main.basedir>${project.basedir}</main.basedir>
+        <checkstyle.configLocation>${main.basedir}/checkstyle/checkstyle.xml</checkstyle.configLocation>
+        <checkstyle.supressionsLocation>${main.basedir}/checkstyle/suppressions.xml</checkstyle.supressionsLocation>
+        <checkstyle.headerLocation>${main.basedir}/checkstyle/ClassHeader.txt</checkstyle.headerLocation>
+
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <jdk.version>8</jdk.version>
+        <target.dir>target</target.dir>
+        <maven.build.timestamp.format>yyyyMMdd</maven.build.timestamp.format>
+        <timestamp>${maven.build.timestamp}</timestamp>
+        <extraVmArgs />
+        <vmHeapSettings>-Xms1g -Xmx1g</vmHeapSettings>
+        <!-- Java 9+ module system args to be appended during surefire/failsafe executions. -->
+        <javaModuleArgs />
+
+        <hazelcast.distribution>Hazelcast Enterprise</hazelcast.distribution>
+        <hazelcast.serialization.version>1</hazelcast.serialization.version>
+        <hazelcast.serverMainClass>com.hazelcast.core.server.HazelcastMemberStarter</hazelcast.serverMainClass>
+        <hazelcast.license.provider.exclude>NLCLicenseProvider</hazelcast.license.provider.exclude>
+        <license.extractor.version>3.0.1</license.extractor.version>
+
+        <maven.compiler.plugin.version>2.5.1</maven.compiler.plugin.version>
+        <maven.assembly.plugin.version>3.3.0</maven.assembly.plugin.version>
+        <maven.jar.plugin.version>3.2.2</maven.jar.plugin.version>
+        <maven.bundle.plugin.version>2.4.0</maven.bundle.plugin.version>
+        <maven.shade.plugin.version>3.2.4</maven.shade.plugin.version>
+        <maven.gpg.plugin.version>1.4</maven.gpg.plugin.version>
+        <maven.javadoc.plugin.version>3.3.2</maven.javadoc.plugin.version>
+        <maven.javadoc.plugin.excludePackageNames>
+            *.impl:*.impl.*:*.internal:*.internal.*:*.operations:*.proxy:*.util:
+            com.hazelcast.aws.security:*.handlermigration:*.client.connection.nio:
+            *.client.console:*.buildutils:*.client.protocol.generator:*.cluster.client:
+            *.concurrent:*.nio.ascii:*.nio.ssl:*.nio.tcp:*.partition.client:
+            *.transaction.client:*.core.server:com.hazelcast.instance:com.hazelcast.PlaceHolder
+        </maven.javadoc.plugin.excludePackageNames>
+
+        <maven.surefire.plugin.version>2.22.2</maven.surefire.plugin.version>
+        <maven.checkstyle.plugin.version>3.1.2</maven.checkstyle.plugin.version>
+        <maven.sonar.plugin.version>3.6.0.1398</maven.sonar.plugin.version>
+        <maven.jacoco.plugin.version>0.8.7</maven.jacoco.plugin.version>
+        <maven.failsafe.plugin.version>2.22.2</maven.failsafe.plugin.version>
+        <maven.enforcer.plugin.version>3.0.0-M2</maven.enforcer.plugin.version>
+        <maven.antrun.plugin.version>3.0.0</maven.antrun.plugin.version>
+        <maven.exec.plugin.version>3.0.0</maven.exec.plugin.version>
+        <maven.dependency.plugin.version>3.2.0</maven.dependency.plugin.version>
+        <docker.maven.plugin.version>0.37.0</docker.maven.plugin.version>
+        <owasp.dependency-check.version>6.5.3</owasp.dependency-check.version>
+        <maven-deploy-plugin.version>2.7</maven-deploy-plugin.version>
+        <maven.animal.sniffer.plugin.version>1.21</maven.animal.sniffer.plugin.version>
+
+        <!-- The path to relocated external dependencies. -->
+        <relocation.root>com.hazelcast</relocation.root>
+
+        <maven.test.redirectTestOutputToFile>true</maven.test.redirectTestOutputToFile>
+
+        <checkstyle.version>8.38</checkstyle.version>
+
+        <log4j2.version>2.17.1</log4j2.version>
+        <junit.version>4.13.2</junit.version>
+        <assertj.version>3.15.0</assertj.version>
+        <hamcrest.version>1.3</hamcrest.version>
+        <mockito.version>3.3.0</mockito.version>
+        <powermock.version>2.0.2</powermock.version>
+        <bytebuddy.version>1.9.16</bytebuddy.version>
+        <netty.version>4.1.63.Final</netty.version>
+        <netty-tcnative.version>2.0.48.Final</netty-tcnative.version>
+        <netty-tcnative.artifactId>netty-tcnative-boringssl-static</netty-tcnative.artifactId>
+        <netty-tcnative.classifier />
+        <findbugs.annotations.version>3.0.1u2</findbugs.annotations.version>
+        <jsr107.api.version>1.1.1</jsr107.api.version>
+        <reflections.version>0.9.10</reflections.version>
+        <felix.utils.version>1.11.8</felix.utils.version>
+        <snakeyaml.engine.version>2.3</snakeyaml.engine.version>
+        <testcontainers.version>1.16.3</testcontainers.version>
+        <picocli.version>3.9.0</picocli.version>
+        <jline.version>3.16.0</jline.version>
+        <commons-text.version>1.9</commons-text.version>
+        <gson.version>2.8.7</gson.version>
+    </properties>
+
+    <licenses>
+        <license>
+            <name>Commercial License</name>
+            <url>http://www.hazelcast.com/licenses/LICENSE.txt</url>
+            <distribution>manual</distribution>
+        </license>
+    </licenses>
+
+    <organization>
+        <name>Hazelcast, Inc.</name>
+        <url>http://www.hazelcast.com/</url>
+    </organization>
+
+    
+    
+
+    <build>
+        <extensions>
+            <extension>
+                <groupId>org.apache.maven.wagon</groupId>
+                <artifactId>wagon-webdav</artifactId>
+                <version>1.0-beta-2</version>
+            </extension>
+        </extensions>
+
+        <sourceDirectory>src/main/java</sourceDirectory>
+        <outputDirectory>${target.dir}/classes</outputDirectory>
+        <testSourceDirectory>src/test/java</testSourceDirectory>
+        <testOutputDirectory>${target.dir}/test-classes</testOutputDirectory>
+
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>**/*.html</include>
+                    <include>**/*.bat</include>
+                    <include>**/*.sh</include>
+                    <include>**/*.properties</include>
+                    <include>**/*.xml</include>
+                    <include>**/*.xsd</include>
+                    <include>**/*.handlers</include>
+                    <include>**/*.schemas</include>
+                    <include>**/*.txt</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>false</filtering>
+                <includes>
+                    <include>**/META-INF/services/*.*</include>
+                </includes>
+            </resource>
+        </resources>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>${maven.checkstyle.plugin.version}</version>
+                <executions>
+                    <execution>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>checkstyle</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <configLocation>${checkstyle.configLocation}</configLocation>
+                    <suppressionsLocation>${checkstyle.supressionsLocation}</suppressionsLocation>
+                    <headerLocation>${checkstyle.headerLocation}</headerLocation>
+                    <enableRSS>false</enableRSS>
+                    <linkXRef>false</linkXRef>
+                    <consoleOutput>true</consoleOutput>
+                    <failsOnError>true</failsOnError>
+                    <failOnViolation>true</failOnViolation>
+                    <includeTestSourceDirectory>true</includeTestSourceDirectory>
+                    <enableRulesSummary>true</enableRulesSummary>
+                    <propertyExpansion>main.basedir=${main.basedir}</propertyExpansion>
+                    <excludes>**/module-info.java</excludes>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.puppycrawl.tools</groupId>
+                        <artifactId>checkstyle</artifactId>
+                        <version>${checkstyle.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven.compiler.plugin.version}</version>
+                <configuration>
+                    <fork>true</fork>
+                    <source>${jdk.version}</source>
+                    <target>${jdk.version}</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.2.2</version>
+                <configuration>
+                    <archive>
+                        <index>true</index>
+                        <compress>true</compress>
+                        <!-- Not needed for now -->
+                        <!-- manifestFile>src/main/resources/META-INF/MANIFEST.MF</manifestFile -->
+                    </archive>
+                    <excludes>
+                        <exclude>**/*.html</exclude>
+                        <exclude>**/*.sh</exclude>
+                        <exclude>**/*.bat</exclude>
+                    </excludes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>test-jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven.surefire.plugin.version}</version>
+                <configuration>
+                    <trimStackTrace>false</trimStackTrace>
+                    <!--
+                    Empty sun.nio.ch.bugLevel System property is used to workaround Java 6 issue https://bugs.java.com/view_bug.do?bug_id=6427854
+                    See https://github.com/hazelcast/hazelcast-enterprise/issues/2533
+                     -->
+                    <argLine>
+                        ${vmHeapSettings}
+                        ${extraVmArgs}
+                        ${javaModuleArgs}
+                        -Dsun.nio.ch.bugLevel
+                        -ea
+                        -Dhazelcast.hidensity.check.freememory=false
+                        -Dhazelcast.phone.home.enabled=false
+                        -Dhazelcast.tomcat.shutdown_hazelcast_instance=false
+                        -Dlog4j.skipJansi=true
+                    </argLine>
+                    <excludedGroups>
+                        com.hazelcast.test.annotation.SlowTest,
+                        com.hazelcast.test.annotation.NightlyTest,
+                        com.hazelcast.test.annotation.CompatibilityTest
+                    </excludedGroups>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>${maven.failsafe.plugin.version}</version>
+                <configuration combine.self="override">
+                    <trimStackTrace>false</trimStackTrace>
+                    <argLine>
+                        ${vmHeapSettings}
+                        ${extraVmArgs}
+                        ${javaModuleArgs}
+                        -Dsun.nio.ch.bugLevel
+                        -ea
+                        -Dhazelcast.hidensity.check.freememory=false
+                        -Dhazelcast.phone.home.enabled=false
+                        -Dhazelcast.tomcat.shutdown_hazelcast_instance=false
+                        -Dlog4j.skipJansi=true
+                    </argLine>
+                    <useManifestOnlyJar>false</useManifestOnlyJar>
+                    <useSystemClassLoader>true</useSystemClassLoader>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>integration-test</goal>
+                            <goal>verify</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.sonarsource.scanner.maven</groupId>
+                <artifactId>sonar-maven-plugin</artifactId>
+                <version>${maven.sonar.plugin.version}</version>
+            </plugin>
+            <plugin>
+                <groupId>org.owasp</groupId>
+                <artifactId>dependency-check-maven</artifactId>
+                <version>${owasp.dependency-check.version}</version>
+                <configuration>
+                    <format>ALL</format>
+                    <skipProvidedScope>true</skipProvidedScope>
+                    <nodeAuditAnalyzerEnabled>false</nodeAuditAnalyzerEnabled>
+                    <suppressionFiles>owasp-check-suppressions.xml</suppressionFiles>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>animal-sniffer-maven-plugin</artifactId>
+                <version>${maven.animal.sniffer.plugin.version}</version>
+                <configuration>
+                    <signature>
+                        <groupId>org.codehaus.mojo.signature</groupId>
+                        <artifactId>java18</artifactId>
+                        <version>1.0</version>
+                    </signature>
+                    <ignores>
+                        <ignore>java.lang.invoke.MethodHandle</ignore>
+                        <ignore>sun.misc.Unsafe</ignore>
+                    </ignores>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>source-java8-check</id>
+                        <phase>test-compile</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>${maven.javadoc.plugin.version}</version>
+                    <configuration>
+                        <maxmemory>1024</maxmemory>
+                        <excludePackageNames>${maven.javadoc.plugin.excludePackageNames}</excludePackageNames>
+                        <doclint>none</doclint>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>attach-javadocs</id>
+                            <goals>
+                                <goal>jar</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>release</id>
+            <properties>
+                <javadoc>true</javadoc>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>${maven.gpg.plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>release-snapshot</id>
+            <properties>
+                <javadoc>true</javadoc>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>release-devel</id>
+            <properties>
+                <javadoc>true</javadoc>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                    </plugin>
+                </plugins>
+            </build>
+            <distributionManagement>
+                <repository>
+                    <id>devel-repository</id>
+                    <url>https://hazelcast.jfrog.io/artifactory/devel</url>
+                </repository>
+            </distributionManagement>
+        </profile>
+
+        <profile>
+            <id>test-coverage</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.jacoco</groupId>
+                        <artifactId>jacoco-maven-plugin</artifactId>
+                        <version>${maven.jacoco.plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <id>prepare-agent</id>
+                                <goals>
+                                    <goal>prepare-agent</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>report</id>
+                                <goals>
+                                    <goal>report</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>${maven.surefire.plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <id>default-test</id>
+                                <phase>test</phase>
+                                <goals>
+                                    <goal>test</goal>
+                                </goals>
+                                <configuration combine.self="override">
+                                    <testFailureIgnore>true</testFailureIgnore>
+                                    <trimStackTrace>false</trimStackTrace>
+                                    <excludedGroups>
+                                        com.hazelcast.test.annotation.NightlyTest,
+                                        com.hazelcast.test.annotation.CompatibilityTest
+                                    </excludedGroups>
+                                    <argLine>
+                                        @{argLine}
+                                        -Xms1g -Xmx3g
+                                        ${extraVmArgs}
+                                        ${javaModuleArgs}
+                                        -Dsun.nio.ch.bugLevel
+                                        -ea
+                                        -Dhazelcast.hidensity.check.freememory=false
+                                        -Dhazelcast.phone.home.enabled=false
+                                        -Dhazelcast.logging.type=none
+                                        -Dhazelcast.test.use.network=false
+                                        -Dhazelcast.operation.call.timeout.millis=120000
+                                        -Dhazelcast.graceful.shutdown.max.wait=240
+                                        -Dlog4j.skipJansi=true
+                                    </argLine>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>parallelTest</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>${maven.surefire.plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <id>default-test</id>
+                                <phase>test</phase>
+                                <goals>
+                                    <goal>test</goal>
+                                </goals>
+                                <configuration combine.self="override">
+                                    <!-- 0.5C means half as many forks as cpu cores -->
+                                    <forkCount>0.5C</forkCount>
+                                    <trimStackTrace>false</trimStackTrace>
+                                    <reuseForks>true</reuseForks>
+                                    <!-- the argLine variable is needed for JaCoco -->
+                                    <argLine>
+                                        ${vmHeapSettings}
+                                        ${extraVmArgs}
+                                        ${javaModuleArgs}
+                                        -Dsun.nio.ch.bugLevel
+                                        -ea
+                                        -Dhazelcast.operation.thread.count=16
+                                        -Dhazelcast.hidensity.check.freememory=false
+                                        -Dhazelcast.phone.home.enabled=false
+                                        -Dhazelcast.logging.type=none
+                                        -Dhazelcast.test.use.network=false
+                                        -Dhazelcast.test.multiple.jvm=true
+                                        -Dlog4j.skipJansi=true
+                                    </argLine>
+                                    <includes>
+                                        <include>**/**.java</include>
+                                    </includes>
+                                    <excludes>
+                                        <exclude>**/jsr/**.java</exclude>
+                                        <exclude>**/**IT.java</exclude>
+                                    </excludes>
+                                    <groups>
+                                        com.hazelcast.test.annotation.ParallelJVMTest
+                                    </groups>
+                                    <excludedGroups>
+                                        com.hazelcast.test.annotation.SlowTest,
+                                        com.hazelcast.test.annotation.NightlyTest,
+                                        com.hazelcast.test.annotation.CompatibilityTest
+                                    </excludedGroups>
+                                    <systemPropertyVariables>
+                                        <multipleJVM>true</multipleJVM>
+                                    </systemPropertyVariables>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>singlejvm</id>
+                                <phase>test</phase>
+                                <goals>
+                                    <goal>test</goal>
+                                </goals>
+                                <configuration combine.self="override">
+                                    <properties>
+                                        <vmHeapSettings>-Xms128m -Xmx1G</vmHeapSettings>
+                                    </properties>
+                                    <trimStackTrace>false</trimStackTrace>
+                                    <!-- the argLine variable is needed for JaCoco -->
+                                    <argLine>
+                                        ${vmHeapSettings}
+                                        ${extraVmArgs}
+                                        ${javaModuleArgs}
+                                        -Dsun.nio.ch.bugLevel
+                                        -ea
+                                        -Dhazelcast.operation.thread.count=16
+                                        -Dhazelcast.hidensity.check.freememory=false
+                                        -Dhazelcast.phone.home.enabled=false
+                                        -Dhazelcast.logging.type=none
+                                        -Dhazelcast.test.use.network=false
+                                        -Dlog4j.skipJansi=true
+                                    </argLine>
+                                    <includes>
+                                        <include>**/**.java</include>
+                                    </includes>
+                                    <excludes>
+                                        <exclude>**/jsr/**.java</exclude>
+                                        <exclude>**/**IT.java</exclude>
+                                    </excludes>
+                                    <excludedGroups>
+                                        com.hazelcast.test.annotation.SlowTest,
+                                        com.hazelcast.test.annotation.NightlyTest,
+                                        com.hazelcast.test.annotation.ParallelJVMTest,
+                                        com.hazelcast.test.annotation.CompatibilityTest
+                                    </excludedGroups>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>nightly-build</id>
+            <properties>
+                <vmHeapsettings>-Xms2g -Xmx2g</vmHeapsettings>
+                <argLine>
+                    ${vmHeapSettings}
+                    ${extraVmArgs}
+                    ${javaModuleArgs}
+                    -Dsun.nio.ch.bugLevel
+                    -ea
+                    -Dhazelcast.hidensity.check.freememory=false
+                    -Dhazelcast.phone.home.enabled=false
+                    -Dhazelcast.logging.type=none
+                    -Dhazelcast.test.use.network=false
+                    -Dlog4j.skipJansi=true
+                </argLine>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>${maven.surefire.plugin.version}</version>
+                        <configuration combine.self="override">
+                            <testFailureIgnore>true</testFailureIgnore>
+                            <trimStackTrace>false</trimStackTrace>
+                            <groups>
+                                com.hazelcast.test.annotation.SlowTest,
+                                com.hazelcast.test.annotation.NightlyTest
+                            </groups>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>jdk-9</id>
+            <activation>
+                <jdk>[9,)</jdk>
+            </activation>
+            <properties>
+                <!--
+                Hot Restart related arguments:
+                    export java.base/jdk.internal.ref
+                    open java.base/java.nio
+                    open java.base/sun.nio.ch
+                Operating system metrics related:
+                    open jdk.management/com.sun.management.internal
+
+                Avoid warnings caused by reflection in
+                FilteringClassLoader:
+                    open java.base/java.lang
+                TimedMemberStateFactoryHelper:
+                    open java.management/sun.management
+
+                Powermock issue workaround (https://github.com/powermock/powermock/issues/905):
+                    export java.xml/jdk.xml.internal
+
+                java17_tests_workaround_to_be_removed is needed for:
+                 - NLCModeLicenseTest
+                 -->
+                <java17_tests_workaround_to_be_removed>
+                    --add-opens java.base/java.util=ALL-UNNAMED
+                </java17_tests_workaround_to_be_removed>
+                <javaModuleArgs>
+                    --add-exports java.base/jdk.internal.ref=ALL-UNNAMED
+                    --add-opens java.base/java.nio=ALL-UNNAMED
+                    --add-opens java.base/sun.nio.ch=ALL-UNNAMED
+                    --add-opens java.base/java.lang=ALL-UNNAMED
+                    --add-opens jdk.management/com.sun.management.internal=ALL-UNNAMED
+                    --add-opens java.management/sun.management=ALL-UNNAMED
+                    --add-exports java.xml/jdk.xml.internal=ALL-UNNAMED
+                    --add-exports jdk.management/com.ibm.lang.management.internal=ALL-UNNAMED
+                    ${java17_tests_workaround_to_be_removed}
+                    --illegal-access=warn
+                </javaModuleArgs>
+            </properties>
+            <modules>
+                <module>enterprise-modulepath-tests</module>
+            </modules>
+        </profile>
+
+        <profile>
+            <id>compatibility-tests</id>
+            <properties>
+                <vmHeapSettings>-Xms512m -Xmx2G</vmHeapSettings>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-dependency-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>properties</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>${maven.surefire.plugin.version}</version>
+                        <configuration combine.self="override">
+                            <trimStackTrace>false</trimStackTrace>
+                            <parallel>none</parallel>
+                            <argLine>
+                                ${vmHeapSettings}
+                                ${extraVmArgs}
+                                ${javaModuleArgs}
+                                -Dsun.nio.ch.bugLevel
+                                -ea
+                                -Dhazelcast.phone.home.enabled=false
+                                -Dhazelcast.logging.type=log4j2
+                                -Dhazelcast.test.compatibility=true
+                                -Dlog4j.skipJansi=true
+                                -javaagent:${com.hazelcast:hazelcast-build-utils:jar}
+                            </argLine>
+                            <includes>
+                                <include>**/**.java</include>
+                            </includes>
+                            <excludes>
+                                <exclude>**/jsr/**.java</exclude>
+                                <exclude>**/**IT.java</exclude>
+                            </excludes>
+                            <groups>
+                                com.hazelcast.test.annotation.CompatibilityTest
+                            </groups>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <!-- same as default build (excludes Nightly & Slow tests), outputs serialized objects to a blob -->
+            <!-- for compatibility testing -->
+            <id>generate-compatibility-samples</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>${maven.surefire.plugin.version}</version>
+                        <configuration combine.self="override">
+                            <properties>
+                                <property>
+                                    <name>listener</name>
+                                    <value>com.hazelcast.test.compatibility.SamplingRunListener</value>
+                                </property>
+                            </properties>
+                            <runOrder>failedfirst</runOrder>
+                            <trimStackTrace>false</trimStackTrace>
+                            <argLine>
+                                ${vmHeapSettings}
+                                ${extraVmArgs}
+                                ${javaModuleArgs}
+                                -Dsun.nio.ch.bugLevel
+                                -ea
+                                -Dhazelcast.hidensity.check.freememory=false
+                                -Dhazelcast.phone.home.enabled=false
+                                -Dhazelcast.tomcat.shutdown_hazelcast_instance=false
+                                -Dhazelcast.test.sample.serialized.objects=${target.dir}/serialized-objects-${project.version}-ee-
+                                -Dlog4j.skipJansi=true
+                            </argLine>
+                            <excludedGroups>
+                                com.hazelcast.test.annotation.SlowTest,
+                                com.hazelcast.test.annotation.NightlyTest,
+                                com.hazelcast.test.annotation.CompatibilityTest,
+                                com.hazelcast.test.annotation.SerializationSamplesExcluded
+                            </excludedGroups>
+                            <excludes>
+                                <exclude>**/jet/**/*.java</exclude>
+                                <exclude>**/*Jet*.java</exclude>
+                            </excludes>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <!-- generates a NLC build (with -nlc suffix) -->
+            <!-- warning: this build has no license enforcement and all features are enabled -->
+            <id>no-license-checker-build</id>
+            <properties>
+                <hazelcast.license.provider.exclude>NoLicenseProvider</hazelcast.license.provider.exclude>
+            </properties>
+            <build>
+                <finalName>${project.artifactId}-${project.version}-nlc</finalName>
+            </build>
+        </profile>
+
+        <profile>
+            <id>quick</id>
+            <activation>
+                <property>
+                    <name>quick</name>
+                </property>
+            </activation>
+            <properties>
+                <checkstyle.skip>true</checkstyle.skip>
+                <skipTests>true</skipTests>
+                <maven.javadoc.skip>true</maven.javadoc.skip>
+                <maven.source.skip>true</maven.source.skip>
+            </properties>
+        </profile>
+
+    </profiles>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.hazelcast</groupId>
+            <artifactId>hazelcast</artifactId>
+            <version>${project.version}</version>
+            <scope>test</scope>
+            <classifier>tests</classifier>
+        </dependency>
+
+        <dependency>
+            <groupId>com.hazelcast</groupId>
+            <artifactId>hazelcast-archunit-rules</artifactId>
+            <version>${project.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>${assertj.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>${mockito.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.powermock</groupId>
+            <artifactId>powermock-api-mockito2</artifactId>
+            <version>${powermock.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.powermock</groupId>
+            <artifactId>powermock-module-junit4</artifactId>
+            <version>${powermock.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>${log4j2.version}</version>
+            <scope>provided</scope>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-slf4j-impl</artifactId>
+            <version>${log4j2.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.code.findbugs</groupId>
+            <artifactId>annotations</artifactId>
+            <version>${findbugs.annotations.version}</version>
+            <scope>provided</scope>
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>org.reflections</groupId>
+            <artifactId>reflections</artifactId>
+            <version>${reflections.version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <distributionManagement>
+        <repository>
+            <id>private-repository</id>
+            <url>https://hazelcast.jfrog.io/artifactory/release</url>
+        </repository>
+        <snapshotRepository>
+            <id>private-repository</id>
+            <url>https://hazelcast.jfrog.io/artifactory/snapshot</url>
+        </snapshotRepository>
+    </distributionManagement>
+</project>

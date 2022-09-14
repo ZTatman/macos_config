@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.charter.gateway</groupId>
+    <artifactId>data-badwords</artifactId>
+    <version>1.0.0</version>
+    <packaging>jar</packaging>
+
+    <name>data-badwords</name>
+    <description>Data Library for ordering bad word list. It stores data related to bad words returned from RDM service</description>
+
+    <parent>
+        <groupId>com.charter.gateway</groupId>
+        <artifactId>webapi-library-parent</artifactId>
+        <version>GoldenEagle.SR5</version>
+        <relativePath />
+    </parent>
+
+    <properties>
+        <!-- Owner information -->
+        <owner.name>KK Musunuru</owner.name>
+        <owner.email>KK.Musunuru@charter.com</owner.email>
+    </properties>
+
+    <dependencies>
+        <!-- Web API libraries -->
+        <dependency>
+            <groupId>com.charter.gateway</groupId>
+            <artifactId>gateway-data</artifactId>
+        </dependency>
+
+        <!-- Test -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.hazelcast</groupId>
+            <artifactId>hazelcast</artifactId>
+            <classifier>tests</classifier>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+</project>

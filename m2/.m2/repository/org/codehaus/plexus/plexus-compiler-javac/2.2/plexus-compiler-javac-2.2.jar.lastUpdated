@@ -1,0 +1,5 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Fri Jun 24 09:59:17 EDT 2022
+2e294e06e938acb867e59767bfe629cdc3409ae1@default-snapshots-https\://artifactory.corp.chartercom.com//plugins-snapshot/.lastUpdated=1656079041425
+https\://artifactory.corp.chartercom.com//plugins-snapshot/.error=Could not transfer artifact org.codehaus.plexus\:plexus-compiler-javac\:jar\:2.2 from/to snapshots (https\://artifactory.corp.chartercom.com//plugins-snapshot)\: PKIX path building failed\: sun.security.provider.certpath.SunCertPathBuilderException\: unable to find valid certification path to requested target
+https\://artifactory.corp.chartercom.com//plugins-release/.lastUpdated=1656079157342

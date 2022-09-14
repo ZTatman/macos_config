@@ -1,0 +1,5 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Fri Jul 01 09:39:26 EDT 2022
+2e294e06e938acb867e59767bfe629cdc3409ae1@default-snapshots-https\://artifactory.corp.chartercom.com//libs-snapshot/.lastUpdated=1656082851693
+https\://artifactory.corp.chartercom.com//libs-snapshot/.error=Could not transfer artifact com.charter.gateway\:webapi-application-cache-starter\:pom\:3.0.0 from/to snapshots (https\://artifactory.corp.chartercom.com//libs-snapshot)\: PKIX path building failed\: sun.security.provider.certpath.SunCertPathBuilderException\: unable to find valid certification path to requested target
+https\://artifactory.corp.chartercom.com//libs-release/.lastUpdated=1656682766152

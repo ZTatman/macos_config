@@ -1,0 +1,14 @@
+# [user]
+# 	email = zachariah.tatman@charter.com
+# 	name = Tatman
+
+[includeIf "gitdir:~/Projects/Charter/**"]
+    path = .gitconfig-work
+[includeIf "gitdir:~/Projects/Personal/**"]
+    path = .gitconfig-personal
+[includeif "gitdir:~/.config/**"]
+    path = .gitconfig-personal
+[safe]
+	directory = ~/Projects/Personal
+[user]
+	email = zachariah.tatman@charter.com

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <groupId>com.charter.gateway.webapi.spring</groupId>
+  <artifactId>account-user-v2</artifactId>
+  <versioning>
+    <versions>
+      <version>2.0.0-SNAPSHOT</version>
+      <version>2.0.2-SNAPSHOT</version>
+    </versions>
+    <lastUpdated>20220804193131</lastUpdated>
+  </versioning>
+</metadata>

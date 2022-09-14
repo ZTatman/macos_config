@@ -1,0 +1,41 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.charter.gateway</groupId>
+    <artifactId>spectrumcore-error</artifactId>
+    <version>1.5.0</version>
+    <packaging>jar</packaging>
+
+    <name>spectrumcore-error</name>
+    <description>Library for common error handling components when calling Spectrum Core services</description>
+
+    <properties>
+        <!-- Owner information -->
+        <owner.name>John Hicks</owner.name>
+        <owner.email>john.hicks1@charter.com</owner.email>
+    </properties>
+
+    <parent>
+        <groupId>com.charter.gateway</groupId>
+        <artifactId>webapi-library-parent</artifactId>
+        <version>GoldenEagle.SR5</version>
+        <relativePath />
+    </parent>
+
+    <dependencies>
+        <!-- Web API libraries -->
+        <dependency>
+            <groupId>com.charter.gateway</groupId>
+            <artifactId>webapi-serviceclient-rest</artifactId>
+        </dependency>
+
+        <!-- Test -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+</project>

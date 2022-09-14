@@ -1,0 +1,12 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Fri Jun 24 10:00:17 EDT 2022
+@default-spring-snapshots-https\://repo.spring.io/snapshot/.lastUpdated=1656079217365
+@default-spring-ext-https\://repo.spring.io/ext-release-local/.lastUpdated=1656079204815
+https\://repo.spring.io/milestone/.error=Could not transfer artifact org.assertj\:assertj-core\:jar\:2.6.0 from/to spring-milestones (https\://repo.spring.io/milestone)\: PKIX path building failed\: sun.security.provider.certpath.SunCertPathBuilderException\: unable to find valid certification path to requested target
+2e294e06e938acb867e59767bfe629cdc3409ae1@default-snapshots-https\://artifactory.corp.chartercom.com//libs-snapshot/.lastUpdated=1656079198839
+@default-spring-milestones-https\://repo.spring.io/milestone/.lastUpdated=1656079211213
+https\://repo.spring.io/ext-release-local/.error=Could not transfer artifact org.assertj\:assertj-core\:jar\:2.6.0 from/to spring-ext (https\://repo.spring.io/ext-release-local/)\: PKIX path building failed\: sun.security.provider.certpath.SunCertPathBuilderException\: unable to find valid certification path to requested target
+https\://artifactory.corp.chartercom.com//libs-release/.error=Could not transfer artifact org.assertj\:assertj-core\:jar\:2.6.0 from/to central (https\://artifactory.corp.chartercom.com//libs-release)\: PKIX path building failed\: sun.security.provider.certpath.SunCertPathBuilderException\: unable to find valid certification path to requested target
+https\://artifactory.corp.chartercom.com//libs-snapshot/.error=Could not transfer artifact org.assertj\:assertj-core\:jar\:2.6.0 from/to snapshots (https\://artifactory.corp.chartercom.com//libs-snapshot)\: PKIX path building failed\: sun.security.provider.certpath.SunCertPathBuilderException\: unable to find valid certification path to requested target
+https\://repo.spring.io/snapshot/.error=Could not transfer artifact org.assertj\:assertj-core\:jar\:2.6.0 from/to spring-snapshots (https\://repo.spring.io/snapshot)\: PKIX path building failed\: sun.security.provider.certpath.SunCertPathBuilderException\: unable to find valid certification path to requested target
+2e294e06e938acb867e59767bfe629cdc3409ae1@default-central-https\://artifactory.corp.chartercom.com//libs-release/.lastUpdated=1656079144145

@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.charter.gateway</groupId>
+    <artifactId>webapi-dependencies</artifactId>
+    <version>GoldenEagle.SR3</version>
+    <packaging>pom</packaging>
+
+    <name>webapi-dependencies</name>
+    <description>Spring Web API dependencies</description>
+
+    <properties>
+        <!-- Owner information -->
+        <owner.name>Gareth Davies</owner.name>
+        <owner.email>gareth.i.davies@charter.com</owner.email>
+
+        <!-- Spring versions -->
+        <spring-boot.version>2.4.6</spring-boot.version>
+        <spring-cloud.version>2020.0.2</spring-cloud.version>
+
+        <!-- Common library (shared with infrastructure components such as gateway-router) versions -->
+        <gateway-data.version>3.0.0</gateway-data.version>
+        <gateway-security.version>4.1.0</gateway-security.version>
+        <consul-hazelcast-discovery.version>1.4.0</consul-hazelcast-discovery.version>
+
+        <!-- Web API library versions -->
+        <spring-cloud-stream-binder-hazelcast.version>1.0.0</spring-cloud-stream-binder-hazelcast.version>
+        <webapi-application-cache-starter.version>2.0.0</webapi-application-cache-starter.version>
+        <webapi-cache.version>2.0.0</webapi-cache.version>
+        <webapi-collectionlimiter.version>1.3.0</webapi-collectionlimiter.version>
+        <webapi-core.version>1.3.0</webapi-core.version>
+        <webapi-message.version>1.0.0</webapi-message.version>
+        <webapi-requestcollapse-hazelcast.version>2.0.0</webapi-requestcollapse-hazelcast.version>
+        <webapi-resiliency-hystrix.version>1.3.0</webapi-resiliency-hystrix.version>
+        <webapi-resiliency-hystrix-starter.version>1.3.0</webapi-resiliency-hystrix-starter.version>
+        <webapi-serviceclient-jdbc.version>1.0.0</webapi-serviceclient-jdbc.version>
+        <webapi-serviceclient-mongo.version>1.1.0</webapi-serviceclient-mongo.version>
+        <webapi-serviceclient-rest.version>2.2.0</webapi-serviceclient-rest.version>
+        <webapi-serviceclient-rest-starter.version>2.2.0</webapi-serviceclient-rest-starter.version>
+        <webapi-serviceclient-soap.version>1.4.0</webapi-serviceclient-soap.version>
+        <webapi-serviceclient-stub.version>1.3.0</webapi-serviceclient-stub.version>
+        <webapi-serviceclient-webapi.version>2.2.0</webapi-serviceclient-webapi.version>
+        <webapi-serviceclient-webapi-starter.version>2.2.0</webapi-serviceclient-webapi-starter.version>
+        <webapi-test-starter.version>1.3.0</webapi-test-starter.version>
+        <webapi-validation.version>1.3.0</webapi-validation.version>
+        <webapi-validation-starter.version>1.3.0</webapi-validation-starter.version>
+        <webapi-webmvc.version>1.3.0</webapi-webmvc.version>
+        <webapi-webmvc-starter.version>1.3.0</webapi-webmvc-starter.version>
+
+        <!-- Additional 3rd party dependency versions -->
+        <commons-text.version>1.6</commons-text.version>
+        <hazelcast.version>3.12.10</hazelcast.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- Spring Boot and Spring Cloud component dependency management -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- Common libraries (shared with infrastructure components such as gateway-router) -->
+            <dependency>
+                <groupId>com.charter.gateway</groupId>
+                <artifactId>gateway-data</artifactId>
+                <version>${gateway-data.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.charter.gateway</groupId>
+                <artifactId>gateway-security-library</artifactId>
+                <version>${gateway-security.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.charter.gateway</groupId>
+                <artifactId>consul-hazelcast-discovery</artifactId>
+                <version>${consul-hazelcast-discovery.version}</version>
+            </dependency>
+
+            <!-- Web API libraries -->
+            <dependency>
+                <groupId>com.charter.gateway</groupId>
+                <artifactId>spring-cloud-stream-binder-hazelcast</artifactId>
+                <version>${spring-cloud-stream-binder-hazelcast.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.charter.gateway</groupId>
+                <artifactId>webapi-application-cache-starter</artifactId>
+                <version>${webapi-application-cache-starter.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.charter.gateway</groupId>
+                <artifactId>webapi-cache</artifactId>
+                <version>${webapi-cache.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.charter.gateway</groupId>
+                <artifactId>webapi-collectionlimiter</artifactId>
+                <version>${webapi-collectionlimiter.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.charter.gateway</groupId>
+                <artifactId>webapi-core</artifactId>
+                <version>${webapi-core.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.charter.gateway</groupId>
+                <artifactId>webapi-message</artifactId>
+                <version>${webapi-message.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.charter.gateway</groupId>
+                <artifactId>webapi-requestcollapse-hazelcast</artifactId>
+                <version>${webapi-requestcollapse-hazelcast.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.charter.gateway</groupId>
+                <artifactId>webapi-resiliency-hystrix</artifactId>
+                <version>${webapi-resiliency-hystrix.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.charter.gateway</groupId>
+                <artifactId>webapi-resiliency-hystrix-starter</artifactId>
+                <version>${webapi-resiliency-hystrix-starter.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.charter.gateway</groupId>
+                <artifactId>webapi-serviceclient-jdbc</artifactId>
+                <version>${webapi-serviceclient-jdbc.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.charter.gateway</groupId>
+                <artifactId>webapi-serviceclient-mongo</artifactId>
+                <version>${webapi-serviceclient-mongo.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.charter.gateway</groupId>
+                <artifactId>webapi-serviceclient-rest</artifactId>
+                <version>${webapi-serviceclient-rest.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.charter.gateway</groupId>
+                <artifactId>webapi-serviceclient-rest-starter</artifactId>
+                <version>${webapi-serviceclient-rest-starter.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.charter.gateway</groupId>
+                <artifactId>webapi-serviceclient-soap</artifactId>
+                <version>${webapi-serviceclient-soap.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.charter.gateway</groupId>
+                <artifactId>webapi-serviceclient-stub</artifactId>
+                <version>${webapi-serviceclient-stub.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.charter.gateway</groupId>
+                <artifactId>webapi-serviceclient-webapi</artifactId>
+                <version>${webapi-serviceclient-webapi.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.charter.gateway</groupId>
+                <artifactId>webapi-serviceclient-webapi-starter</artifactId>
+                <version>${webapi-serviceclient-webapi-starter.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.charter.gateway</groupId>
+                <artifactId>webapi-test-starter</artifactId>
+                <version>${webapi-test-starter.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.charter.gateway</groupId>
+                <artifactId>webapi-validation</artifactId>
+                <version>${webapi-validation.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.charter.gateway</groupId>
+                <artifactId>webapi-validation-starter</artifactId>
+                <version>${webapi-validation-starter.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.charter.gateway</groupId>
+                <artifactId>webapi-webmvc</artifactId>
+                <version>${webapi-webmvc.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.charter.gateway</groupId>
+                <artifactId>webapi-webmvc-starter</artifactId>
+                <version>${webapi-webmvc-starter.version}</version>
+            </dependency>
+
+            <!-- Additional 3rd party dependencies not managed by Spring Boot/Cloud -->
+            <dependency>
+                <groupId>com.hazelcast</groupId>
+                <artifactId>hazelcast-enterprise-client</artifactId>
+                <version>${hazelcast.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.hazelcast</groupId>
+                <artifactId>hazelcast-spring</artifactId>
+                <version>${hazelcast.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.hazelcast</groupId>
+                <artifactId>hazelcast</artifactId>
+                <version>${hazelcast.version}</version>
+                <classifier>tests</classifier>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-text</artifactId>
+                <version>${commons-text.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+</project>

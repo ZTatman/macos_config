@@ -1,0 +1,111 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- Project Information -->
+    <groupId>com.charter.gateway.webapi.spring</groupId>
+    <artifactId>account-user-v2</artifactId>
+    <version>2.0.2-SNAPSHOT</version>
+    <name>account-user</name>
+    <description>Account User API for Spectrum Core</description>
+
+    <!-- Parent Project Information -->
+    <parent>
+        <groupId>com.charter.gateway</groupId>
+        <artifactId>webapi-starter-parent</artifactId>
+        <version>GoldenEagle.SR5</version>
+        <relativePath />
+    </parent>
+
+    <properties>
+        <!-- Web API Specifications -->
+        <api.spec.version>2.0.0</api.spec.version>
+        <spectrumcore-account.version>4.1.0</spectrumcore-account.version>
+        <spectrumcore-customer.version>3.3.0</spectrumcore-customer.version>
+        <spectrumcore-error.version>1.5.0</spectrumcore-error.version>
+        
+        <!-- Owner information -->
+        <owner.name>Jill Pochek</owner.name>
+        <owner.email>jill.pochek@charter.com</owner.email>
+        
+       <!-- Infrastructure Configuration keys -->
+       <infrastructure-configuration-keys>
+            spring-global/security.1.verification-json-web-key,
+            spring-global/service.mutual-authentication.1.web-api-keystore.location,
+            spring-global/service.mutual-authentication.1.web-api-keystore.password,
+            spring-global/service.mutual-authentication.1.remote-service-truststore.location,
+            spring-global/service.mutual-authentication.1.remote-service-truststore.password,
+            spring-global/hazelcast.application.2.cluster.name,
+            spring-global/hazelcast.application.2.cluster.password
+        </infrastructure-configuration-keys>
+
+       <!-- Remote Service Configuration keys -->
+        <remote-service-configuration-keys>
+            spring-global/spectrum-core.get-account.v1x1.c2.endpoint-url,
+            spring-global/spectrum-core.get-customer.v1x0.c1.endpoint-url,
+            spring-global/spectrum-core.update-account.v1x0.c1.endpoint-url,
+            spring-global/spectrum-core.update-customer.v1x1.c1.endpoint-url
+        </remote-service-configuration-keys>
+    </properties>
+
+    <!-- Dependencies-->
+    <dependencies>
+        <!-- Webapi dependencies -->
+        <dependency>
+            <groupId>com.charter.gateway</groupId>
+            <artifactId>webapi-webmvc-starter</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.charter.gateway</groupId>
+            <artifactId>webapi-resiliency-hystrix-starter</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.charter.gateway</groupId>
+            <artifactId>webapi-requestcollapse-hazelcast</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.charter.gateway</groupId>
+            <artifactId>webapi-application-cache-starter</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.charter.gateway</groupId>
+            <artifactId>webapi-validation-starter</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.charter.gateway</groupId>
+            <artifactId>webapi-serviceclient-rest-starter</artifactId>
+        </dependency>
+
+        <!-- Service client library dependencies -->
+        <dependency>
+            <groupId>com.charter.gateway</groupId>
+            <artifactId>spectrumcore-account</artifactId>
+            <version>${spectrumcore-account.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.charter.gateway</groupId>
+            <artifactId>spectrumcore-customer</artifactId>
+            <version>${spectrumcore-customer.version}</version>
+        </dependency>
+
+        <!-- Test dependencies -->
+        <dependency>
+            <groupId>com.charter.gateway</groupId>
+            <artifactId>webapi-test-starter</artifactId>
+            <scope>test</scope>
+        </dependency>
+        
+        <!-- Other dependencies -->
+        <!-- To expose @ConfigurationProperties-annotated class metadata to application.properties IDE editors -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+    </dependencies>
+</project>

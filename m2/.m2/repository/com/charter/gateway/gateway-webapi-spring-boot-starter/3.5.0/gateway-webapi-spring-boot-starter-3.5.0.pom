@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project
+  xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.charter.gateway</groupId>
+  <artifactId>gateway-webapi-spring-boot-starter</artifactId>
+  <version>3.5.0</version>
+  <packaging>jar</packaging>
+
+  <name>gateway-webapi-spring-boot-starter</name>
+  <description>Spring Boot Starter for Gateway Web API applications</description>
+
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>1.5.18.RELEASE</version>
+    <relativePath /> <!-- lookup parent from repository -->
+  </parent>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <java.version>1.8</java.version>
+
+    <hazelcast.version>3.9.2</hazelcast.version>
+    <jackson.version>2.9.0</jackson.version>
+
+    <gateway-common.version>3.0.0</gateway-common.version>
+    <gateway-security.version>2.0.0</gateway-security.version>
+    <gateway-webapi-common.version>1.2.0</gateway-webapi-common.version>
+    <gateway-webapi-serviceclient.version>1.7.0</gateway-webapi-serviceclient.version>
+
+    <gateway-data.version>1.3.1</gateway-data.version>
+    <data-entityqualifier.version>1.1.0</data-entityqualifier.version>
+    <data-linktemplate.version>1.1.1</data-linktemplate.version>
+  </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-dependencies</artifactId>
+        <version>Edgware.SR4</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <dependencies>
+    <!-- Common Gateway abstractions -->
+    <dependency>
+      <groupId>com.charter.gateway</groupId>
+      <artifactId>gateway-common-library</artifactId>
+      <version>${gateway-common.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.charter.gateway</groupId>
+      <artifactId>gateway-security-library</artifactId>
+      <version>${gateway-security.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.charter.gateway</groupId>
+      <artifactId>gateway-webapi-common</artifactId>
+      <version>${gateway-webapi-common.version}</version>
+    </dependency>
+
+    <!-- Spring Boot Autoconfigure -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-autoconfigure</artifactId>
+    </dependency>
+
+    <!-- Spring Boot Security -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-security</artifactId>
+    </dependency>
+
+    <!-- Gateway Data dependencies (exclude open-source Hazelcast library in favor of enterprise one) -->
+    <dependency>
+      <groupId>com.charter.gateway</groupId>
+      <artifactId>gateway-data</artifactId>
+      <version>${gateway-data.version}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>com.hazelcast</groupId>
+          <artifactId>hazelcast</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>com.charter.gateway</groupId>
+      <artifactId>data-entityqualifier</artifactId>
+      <version>${data-entityqualifier.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.charter.gateway</groupId>
+      <artifactId>data-linktemplate</artifactId>
+      <version>${data-linktemplate.version}</version>
+    </dependency>
+
+    <!-- Hazelcast Enterprise In-Memory Data Grid (including cache and transaction support) -->
+    <dependency>
+      <groupId>com.hazelcast</groupId>
+      <artifactId>hazelcast-spring</artifactId>
+      <version>${hazelcast.version}</version>
+      <exclusions>
+        <!--  Exclude open-source Hazelcast library in favor of enterprise one -->
+        <exclusion>
+          <groupId>com.hazelcast</groupId>
+          <artifactId>hazelcast</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>com.hazelcast</groupId>
+      <artifactId>hazelcast-enterprise-client</artifactId>
+      <version>${hazelcast.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-tx</artifactId>
+    </dependency>
+
+    <!-- Gateway Service Client library -->
+    <dependency>
+      <groupId>com.charter.gateway</groupId>
+      <artifactId>gateway-webapi-serviceclient</artifactId>
+      <version>${gateway-webapi-serviceclient.version}</version>
+    </dependency>
+
+    <!-- REST (spring-boot-starter-web from Gateway Common Library) -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-hateoas</artifactId>
+    </dependency>
+
+    <!-- JSON serialization (in addition to dependencies from gateway-data) -->
+    <dependency>
+      <groupId>com.fasterxml.jackson.module</groupId>
+      <artifactId>jackson-module-jsonSchema</artifactId>
+    </dependency>
+
+    <!-- Logging -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-logging</artifactId>
+    </dependency>
+
+    <!-- App Management (includes spring-cloud-starter-hystrix, spring-boot-starter-actuator and jolokia-core from Gateway Common Library) -->
+    <dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+    </dependency>
+
+    <!-- Utilities (includes commons-lang3 from Gateway Common Library) -->
+    <dependency>
+      <groupId>org.aspectj</groupId>
+      <artifactId>aspectjrt</artifactId>
+    </dependency>
+
+    <!-- Test -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-mongodb</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <!-- Metadata -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-configuration-processor</artifactId>
+      <optional>true</optional>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>pl.project13.maven</groupId>
+        <artifactId>git-commit-id-plugin</artifactId>
+        <configuration>
+          <dateFormat>MM/dd/yyyy '@' HH:mm:ss z</dateFormat>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <version>3.0.1</version>
+        <executions>
+          <execution>
+            <id>attach-sources</id>
+            <phase>install</phase>
+            <goals>
+              <goal>jar-no-fork</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>templating-maven-plugin</artifactId>
+        <version>1.0.0</version>
+        <executions>
+          <execution>
+            <id>filter-src</id>
+            <goals>
+              <goal>filter-sources</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>
